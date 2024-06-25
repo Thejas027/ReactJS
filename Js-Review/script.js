@@ -304,7 +304,3 @@ const booksAfterUpdate = booksAfterDelete.map((book) =>
 
 // console.log('React Js')
 
-
-git remote add origin https://github.com/Thejas027/ReactJS.git
-git branch -M main
-git push -u origin main
