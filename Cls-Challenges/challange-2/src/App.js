@@ -15,29 +15,46 @@ export default function App() {
   function handleIncrement() {
     setCount((c) => c + step);
   }
+
+  function handleReset() {
+    setCount(0);
+    setStep(1);
+  }
   return (
     <>
       <div className="steps">
-        <button
+        <input
+          type="range"
+          min="0"
+          max="10"
+          value={step}
+          onChange={(e) => setStep(Number(e.target.value))}
+        />
+        {/* <button
           className="step-decrement step"
           onClick={() => setStep((s) => s - 1)}
         >
           -
-        </button>
+        </button> */}
         <h3 className="step-text">Step : {step}</h3>
-        <button
+        {/* <button
           className="step-increment step"
           onClick={() => setStep((s) => s + 1)}
         >
           +
-        </button>
+        </button> */}
       </div>
 
       <div className="count">
         <button className="step count-decrement" onClick={handleDecrement}>
           -
         </button>
-        <h3 className="count-text">Count : {count}</h3>
+        {/* <h3 className="count-text">Count : {count}</h3> */}
+        <input
+          type="number"
+          value={count}
+          onChange={(e) => setCount(Number(e.target.value))}
+        />
         <button className="step count-increment" onClick={handleIncrement}>
           +
         </button>
@@ -54,6 +71,14 @@ export default function App() {
         </span>
         <span>{date.toDateString()}</span>
       </div>
+
+      {count !== 0 || step !== 1 ? (
+        <div className="reset-button">
+          <button className="btn" onClick={handleReset}>
+            Reset
+          </button>
+        </div>
+      ) : null}
     </>
   );
 }

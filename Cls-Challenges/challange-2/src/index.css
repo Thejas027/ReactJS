@@ -28,8 +28,24 @@
   margin-left: 2rem;
 }
 
-.text{
-      text-align: center;
-      font-size: 2rem;
-      
+.text {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.reset-button {
+  text-align: center;
+  height: 1rem;
+  width: 2.5rem;
+}
+
+.btn {
+  text-align: center;
+  height: 3rem;
+  width: 5.5rem;
+  position: relative;
+  top: 3rem;
+  left: 49rem;
+  border-radius: 3px;
+  cursor: pointer;
 }
