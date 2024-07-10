@@ -1,0 +1,17 @@
+* {
+  margin: 1rem;
+  padding: 0;
+  font-size: 1.2rem;
+}
+
+.bill input,
+select {
+  margin-left: 2rem;
+}
+
+button {
+  font-size: 1rem;
+  height: 2rem;
+  width: 4rem;
+}
+
