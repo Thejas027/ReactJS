@@ -36,13 +36,13 @@ export default function App() {
   }
   return (
     <div className="app">
-      <idv className="sidebar">
+      <div className="sidebar">
         <FriendsList friends={friends} />
         {showAddFriend && <FormAddFriend onAddFriends={handleAddFriend} />}
         <Button onClick={handleShowAddFriend}>
           {showAddFriend ? "close" : "Add new Friend"}
         </Button>
-      </idv>
+      </div>
       <FormSplitBill />
     </div>
   );
