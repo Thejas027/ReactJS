@@ -29,6 +29,6 @@ root.render(
       className=""
       defaultRating={0}
     />
-    <Test />
+    {/* <Test /> */}
   </React.StrictMode>
 );
