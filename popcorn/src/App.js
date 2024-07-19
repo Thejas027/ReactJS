@@ -53,14 +53,24 @@ const average = (arr) =>
 const KEY = "2363428c";
 
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const query = "interstellar";
 
   useEffect(function () {
-    fetch(`https://www.omdbapi.com?apikey=${KEY}&s=interstellar`)
-      .then((res) => res.json())
-      .then((data) => setMovies(data.Search));
-  }, []);
+    async function fetchMovies() {
+      setIsLoading(true);
+      const res = await fetch(
+        `https://www.omdbapi.com?apikey=${KEY}&s=${query}`
+      );
+      const data = await res.json();
+      setMovies(data.Search);
+      setIsLoading(false);
+    }
+    fetchMovies();
+  }, []); // the second array passed in the function argument is called dependency array
 
   return (
     <>
@@ -79,9 +89,7 @@ export default function App() {
             </>
           }
         /> */}
-        <Box>
-          <MoviesList movies={movies} />
-        </Box>
+        <Box>{isLoading ? <Loader /> : <MoviesList movies={movies} />}</Box>
         <Box>
           <WatchedSummary watched={watched} />
           <WatchedMoviesList watched={watched} />
@@ -89,6 +97,10 @@ export default function App() {
       </Main>
     </>
   );
+}
+
+function Loader() {
+  return <p className="loader">loading...</p>;
 }
 
 function NavBar({ children }) {
