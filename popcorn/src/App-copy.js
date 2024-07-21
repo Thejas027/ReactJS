@@ -91,6 +91,7 @@ function NavBar({ children }) {
   );
 }
 
+
 function Logo() {
   return (
     <div className="logo">
