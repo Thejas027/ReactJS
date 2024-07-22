@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// temprary data 
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -24,6 +25,7 @@ const tempMovieData = [
   },
 ];
 
+// tempraray moives in watched list, always shows in the watch list of the website 
 const tempWatchedData = [
   {
     imdbID: "tt1375666",
@@ -82,6 +84,7 @@ export default function App() {
   );
 }
 
+// function for the nav bar 
 function NavBar({ children }) {
   return (
     <nav className="nav-bar">
@@ -91,7 +94,7 @@ function NavBar({ children }) {
   );
 }
 
-
+// function for the logo in the nav bar where it is called in the navBar function
 function Logo() {
   return (
     <div className="logo">
@@ -101,6 +104,7 @@ function Logo() {
   );
 }
 
+// search function in the navbar 
 function Search() {
   const [query, setQuery] = useState("");
   return (
@@ -114,6 +118,7 @@ function Search() {
   );
 }
 
+// based on the search the number of results shown in the section 
 function NumResults({ movies }) {
   return (
     <p className="num-results">
