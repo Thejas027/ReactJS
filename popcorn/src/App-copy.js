@@ -192,6 +192,7 @@ function Movie({ movie }) {
     </li>
   );
 }
+// function which holds all the watched movies list summary 
 
 function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
@@ -222,6 +223,7 @@ function WatchedSummary({ watched }) {
   );
 }
 
+// funciton that holds the watched list 
 function WatchedMoviesList({ watched }) {
   return (
     <ul className="list">
