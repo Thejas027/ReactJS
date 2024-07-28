@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// temprary data 
+// temprary data
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -25,7 +25,7 @@ const tempMovieData = [
   },
 ];
 
-// tempraray moives in watched list, always shows in the watch list of the website 
+// tempraray moives in watched list, always shows in the watch list of the website
 const tempWatchedData = [
   {
     imdbID: "tt1375666",
@@ -84,7 +84,7 @@ export default function App() {
   );
 }
 
-// function for the nav bar 
+// function for the nav bar
 function NavBar({ children }) {
   return (
     <nav className="nav-bar">
@@ -104,7 +104,7 @@ function Logo() {
   );
 }
 
-// search function in the navbar 
+// search function in the navbar
 function Search() {
   const [query, setQuery] = useState("");
   return (
@@ -118,7 +118,7 @@ function Search() {
   );
 }
 
-// based on the search the number of results shown in the section 
+// based on the search the number of results shown in the section
 function NumResults({ movies }) {
   return (
     <p className="num-results">
@@ -192,7 +192,7 @@ function Movie({ movie }) {
     </li>
   );
 }
-// function which holds all the watched movies list summary 
+// function which holds all the watched movies list summary
 
 function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
@@ -223,7 +223,7 @@ function WatchedSummary({ watched }) {
   );
 }
 
-// funciton that holds the watched list 
+// function that holds the watched list
 function WatchedMoviesList({ watched }) {
   return (
     <ul className="list">
