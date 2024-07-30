@@ -278,6 +278,7 @@ function MovieDetail({ selectedId, onCloseMovie }) {
     Genre: genre,
   } = movie;
 
+
   useEffect(
     function () {
       async function getMoviesDetails() {
@@ -288,7 +289,7 @@ function MovieDetail({ selectedId, onCloseMovie }) {
 
         const data = await res.json();
         setMovie(data);
-        setIsLoading(true);
+        setIsLoading(false);
       }
 
       getMoviesDetails();
