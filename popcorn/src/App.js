@@ -59,6 +59,7 @@ export default function App() {
         setError("");
         return;
       }
+      handleCloseMovie();
       fetchMovies();
       return function () {
         controller.abort();
@@ -66,6 +67,8 @@ export default function App() {
     },
     [query]
   ); // the second array passed in the function argument is called dependency array
+
+  //  the effect used below is for keypress effect to get back from watched summary to previous render or page simply the previous tab
 
   return (
     <>
@@ -259,6 +262,21 @@ function MovieDetail({ selectedId, onCloseMovie, onAddWatched, watched }) {
     onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
+
+  useEffect(
+    function () {
+      function callback(e) {
+        if (e.code === "Escape") onCloseMovie();
+      }
+
+      document.addEventListener("keydown", callback);
+      return function () {
+        document.removeEventListener("keydown", callback);
+      };
+    },
+
+    [onCloseMovie]
+  );
 
   useEffect(
     function () {
