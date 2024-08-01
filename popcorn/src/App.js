@@ -9,10 +9,17 @@ const KEY = "2363428c";
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+
+  // const [watched, setWatched] = useState([]);
+
+  // callback function used to store the watched list movies which are added to list, the following state results in displaying a watch list content even after refreshing a page
+  const [watched, setWatched] = useState(function () {
+    const storedMovies = localStorage.getItem("watched");
+    return JSON.parse(storedMovies);
+  });
 
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
@@ -24,11 +31,25 @@ export default function App() {
 
   function handleAddWatched(movie) {
     setWatched((watched) => [...watched, movie]);
+    // METHOD-1 , to store in a local storage
+    // localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   }
 
   function handleDeletedWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
+
+    // so in above function, where local storage is used to store data to get those data, if  "METHOD-1" is used then to retrive it this must be done
+    // localStorage.getItem("watched", JSON.parse([...watched]));
   }
+
+  // an use effect to store in a local storage
+  useEffect(
+    function () {
+      localStorage.setItem("watched", JSON.stringify(watched));
+    },
+    [watched]
+  );
+
   useEffect(
     function () {
       const controller = new AbortController();
@@ -66,9 +87,7 @@ export default function App() {
       };
     },
     [query]
-  ); // the second array passed in the function argument is called dependency array
-
-  //  the effect used below is for keypress effect to get back from watched summary to previous render or page simply the previous tab
+  );
 
   return (
     <>
@@ -159,7 +178,6 @@ function NumResults({ movies }) {
   );
 }
 
-//
 function Main({ children }) {
   return <main className="main">{children}</main>;
 }
@@ -176,30 +194,6 @@ function Box({ children }) {
   );
 }
 
-/* 
-function WatchBox() {
-  const [watched, setWatched] = useState(tempWatchedData);
-  const [isOpen2, setIsOpen2] = useState(true);
-
-  return (
-    <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen2((open) => !open)}
-      >
-        {isOpen2 ? "–" : "+"}
-      </button>
-      {isOpen2 && (
-        <>
-          <WatchedSummary watched={watched} />
-          <WatchedMoviesList watched={watched} />
-        </>
-      )}
-    </div>
-  );
-}
-
-*/
 function MoviesList({ movies, onSelectMovie }) {
   return (
     <ul className="list list-movies">
