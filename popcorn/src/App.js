@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./components/StarRating";
 import { useMovies } from "./useMovies";
+import { useLocalStorageState } from "./useLocalStorageState";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -12,13 +13,9 @@ export default function App() {
 
   const [selectedId, setSelectedId] = useState(null);
 
-  // const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useLocalStorageState([],"watched");
 
-  // callback function used to store the watched list movies which are added to list, the following state results in displaying a watch list content even after refreshing a page
-  const [watched, setWatched] = useState(function () {
-    const storedMovies = localStorage.getItem("watched");
-    return JSON.parse(storedMovies);
-  });
+
 
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
@@ -41,13 +38,7 @@ export default function App() {
     // localStorage.getItem("watched", JSON.parse([...watched]));
   }
 
-  // an use effect to store in a local storage
-  useEffect(
-    function () {
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched]
-  );
+
 
   const { movies, error, isLoading } = useMovies(query, handleCloseMovie);
 
