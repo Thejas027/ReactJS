@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import StarRating from "./components/StarRating";
-import { useMovies } from "./useMovies";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -9,16 +8,11 @@ const KEY = "2363428c";
 
 export default function App() {
   const [query, setQuery] = useState("");
-
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
-
-  // const [watched, setWatched] = useState([]);
-
-  // callback function used to store the watched list movies which are added to list, the following state results in displaying a watch list content even after refreshing a page
-  const [watched, setWatched] = useState(function () {
-    const storedMovies = localStorage.getItem("watched");
-    return JSON.parse(storedMovies);
-  });
 
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
@@ -30,26 +24,51 @@ export default function App() {
 
   function handleAddWatched(movie) {
     setWatched((watched) => [...watched, movie]);
-    // METHOD-1 , to store in a local storage
-    // localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   }
 
   function handleDeletedWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
-
-    // so in above function, where local storage is used to store data to get those data, if  "METHOD-1" is used then to retrive it this must be done
-    // localStorage.getItem("watched", JSON.parse([...watched]));
   }
-
-  // an use effect to store in a local storage
   useEffect(
     function () {
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched]
-  );
+      const controller = new AbortController();
+      async function fetchMovies() {
+        try {
+          setIsLoading(true);
+          setError("");
+          const res = await fetch(
+            `https://www.omdbapi.com?apikey=${KEY}&s=${query}`,
+            { signal: controller.signal }
+          );
 
-  const { movies, error, isLoading } = useMovies(query, handleCloseMovie);
+          if (!res.ok)
+            throw new Error("Something went wrong with fetching movies");
+
+          const data = await res.json();
+          if (data.Response === "False") throw new Error("Movie not found");
+          setMovies(data.Search);
+          setError("");
+        } catch (err) {
+          if (err.name !== "AbortError") setError(err.message);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+      if (query.length < 3) {
+        setMovies([]);
+        setError("");
+        return;
+      }
+      handleCloseMovie();
+      fetchMovies();
+      return function () {
+        controller.abort();
+      };
+    },
+    [query]
+  ); // the second array passed in the function argument is called dependency array
+
+  //  the effect used below is for keypress effect to get back from watched summary to previous render or page simply the previous tab
 
   return (
     <>
@@ -121,28 +140,6 @@ function Logo() {
 }
 
 function Search({ query, setQuery }) {
-  // useEffect(function () {
-  //   const el = document.querySelector(".search");
-  //   el.focus();
-  // }, []);
-
-  // instead of using useEffect to select the dom element useRef can be used ,
-  const inputEl = useRef(null);
-
-  useEffect(function () {
-    function callback(e) {
-      if (document.activeElement === inputEl.current) return;
-
-      if (e.code === "Enter") {
-        inputEl.current.focus();
-        setQuery("");
-      }
-    }
-
-    document.addEventListener("keydown", callback);
-    return () => document.addEventListener("keydown", callback);
-  }, []);
-
   return (
     <input
       className="search"
@@ -150,7 +147,6 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
-      ref={inputEl}
     />
   );
 }
@@ -163,6 +159,7 @@ function NumResults({ movies }) {
   );
 }
 
+//
 function Main({ children }) {
   return <main className="main">{children}</main>;
 }
@@ -179,6 +176,30 @@ function Box({ children }) {
   );
 }
 
+/* 
+function WatchBox() {
+  const [watched, setWatched] = useState(tempWatchedData);
+  const [isOpen2, setIsOpen2] = useState(true);
+
+  return (
+    <div className="box">
+      <button
+        className="btn-toggle"
+        onClick={() => setIsOpen2((open) => !open)}
+      >
+        {isOpen2 ? "–" : "+"}
+      </button>
+      {isOpen2 && (
+        <>
+          <WatchedSummary watched={watched} />
+          <WatchedMoviesList watched={watched} />
+        </>
+      )}
+    </div>
+  );
+}
+
+*/
 function MoviesList({ movies, onSelectMovie }) {
   return (
     <ul className="list list-movies">
@@ -214,15 +235,6 @@ function MovieDetail({ selectedId, onCloseMovie, onAddWatched, watched }) {
     (movie) => movie.imdbID === selectedId
   )?.userRating;
 
-  const countRef = useRef(0);
-
-  useEffect(
-    function () {
-      if (userRating) countRef.current = countRef.current + 1;
-    },
-    [userRating]
-  );
-
   const {
     Title: title,
     Year: year,
@@ -245,7 +257,6 @@ function MovieDetail({ selectedId, onCloseMovie, onAddWatched, watched }) {
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
       userRating,
-      countRatingDecisions: countRef.current,
     };
 
     onAddWatched(newWatchedMovie);
