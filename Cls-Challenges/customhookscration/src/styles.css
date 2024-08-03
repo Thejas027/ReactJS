@@ -1,0 +1,75 @@
+/* Global styles */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Container */
+.container {
+  text-align: center;
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Button */
+.get-position-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.get-position-button:hover {
+  background-color: #357abd;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.get-position-button:disabled {
+  background-color: #a0c4f2;
+  cursor: not-allowed;
+}
+
+/* Messages */
+.message {
+  margin-top: 20px;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.message.loading {
+  color: #4a90e2;
+}
+
+.message.error {
+  color: #d9534f;
+}
+
+.message.position a {
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.message.position a:hover {
+  text-decoration: underline;
+}
+
+/* Click count */
+.click-count {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #555;
+}
