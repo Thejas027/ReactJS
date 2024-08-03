@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import StarRating from "./components/StarRating";
+import StarRating from "../components/StarRating";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);

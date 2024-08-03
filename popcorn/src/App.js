@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./components/StarRating";
-import { useMovies } from "./useMovies";
-import { useLocalStorageState } from "./useLocalStorageState";
-import { useKey } from "./useKey";
+import { useMovies } from "./CustomHooks/useMovies";
+import { useLocalStorageState } from "./CustomHooks/useLocalStorageState";
+import { useKey } from "./CustomHooks/useKey";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
