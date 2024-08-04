@@ -1,14 +1,115 @@
-.counter {
+/* Global styles */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fafafa;
+  color: #444;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 1rem;
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 6rem;
+  height: 100vh;
+  margin: 0;
 }
 
-.counter * {
-  font-size: inherit;
-  padding: 0.8rem;
+/* Counter container styling */
+.counter {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px 30px;
+  width: 350px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.counter:hover {
+  transform: translateY(-5px);
+}
+
+/* Range input styling */
+.counter input[type="range"] {
+  width: 100%;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.counter input[type="range"]::-webkit-slider-thumb {
+  background-color: #4fa1e9;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.counter input[type="range"]::-moz-range-thumb {
+  background-color: #4fa1e9;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Step display styling */
+.counter span {
+  display: inline-block;
+  margin-left: 15px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #4fa1e9;
+}
+
+/* Button styling */
+.counter button {
+  background-color: #4fa1e9;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.counter button:hover {
+  background-color: #4fa1e9;
+}
+
+.counter button:active {
+  transform: scale(0.98);
+}
+
+/* Input field styling */
+.counter input[type="text"],
+.counter input[type="number"] {
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px;
+  text-align: center;
+  width: 100px;
+  margin: 10px 0;
+  transition: border-color 0.3s ease;
+}
+
+.counter input[type="text"]:focus,
+.counter input[type="number"]:focus {
+  outline: none;
+  border-color: #4fa1e9;
+}
+
+/* Date display styling */
+.counter p {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px 0;
+  color: #333;
+}
+
+/* Reset button styling */
+.counter .reset-button {
+  background-color: #f44336;
+}
+
+.counter .reset-button:hover {
+  background-color: #e53935;
 }
