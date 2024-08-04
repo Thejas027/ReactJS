@@ -154,6 +154,7 @@ progress {
 .btn-option {
   width: 100%;
   text-align: left;
+  margin-bottom: 2rem;
 }
 
 .btn-option.correct {
@@ -239,21 +240,4 @@ progress {
   80% {
     background-position: 0% 50%, 50% 50%, 100% 100%;
   }
-}
-
-/* ********** */
-/* First counter example */
-.counter {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 6rem;
-}
-
-.counter * {
-  font-size: inherit;
-  padding: 0.8rem;
 }
