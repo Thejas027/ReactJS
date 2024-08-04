@@ -1,0 +1,14 @@
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 6rem;
+}
+
+.counter * {
+  font-size: inherit;
+  padding: 0.8rem;
+}
