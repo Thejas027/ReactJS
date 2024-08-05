@@ -5,6 +5,7 @@ import Error from "./Error";
 import Ready from "./Ready";
 import Loader from "./Loader";
 import Question from "./Question";
+import NextButton from "./NextButton";
 
 const initialStates = {
   questions: [],
@@ -39,6 +40,9 @@ function reducer(state, action) {
             : state.points,
       };
 
+    case "newQuestion":
+      return { ...state, index: state.index + 1, answer: null };
+
     default:
       throw new Error("action is unknown");
   }
@@ -49,9 +53,6 @@ export default function App() {
     reducer,
     initialStates
   );
-
-  console.log(status)
-  console.log(answer + " hi");
 
   const numQuestions = questions.length;
 
@@ -72,11 +73,14 @@ export default function App() {
           <Ready numQuestions={numQuestions} dispatch={dispatch} />
         )}
         {status === "active" && (
-          <Question
-            question={questions[index]}
-            dispatch={dispatch}
-            answer={answer}
-          />
+          <>
+            <Question
+              question={questions[index]}
+              dispatch={dispatch}
+              answer={answer}
+            />
+            <NextButton dispatch={dispatch} answer={answer} />
+          </>
         )}
       </Main>
     </div>
