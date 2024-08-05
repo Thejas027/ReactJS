@@ -32,7 +32,7 @@ function reducer(state, action) {
 
       return {
         ...state,
-        answers: action.payload,
+        answer: action.payload,
         points:
           action.payload === question.correctOption
             ? state.points + question.points
@@ -49,6 +49,9 @@ export default function App() {
     reducer,
     initialStates
   );
+
+  console.log(status)
+  console.log(answer + " hi");
 
   const numQuestions = questions.length;
 
