@@ -1,11 +1,70 @@
+/* Global Styles */
 body {
-  text-align: center;
-  font-size: 2rem;
+  font-family: Arial, sans-serif;
+  background-color: #f0f4f8;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-button{
-      height: 2rem;
-      font-size: 1.4rem;
-      border-radius:5px;
-      border: 1px solid black;
+/* Container for the App */
+.app-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Title */
+.title {
+  font-size: 24px;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+/* Information Container */
+.info-container {
+  margin-bottom: 20px;
+}
+
+/* Balance and Loan Info */
+.balance,
+.loan {
+  font-size: 18px;
+  color: #555555;
+  margin: 8px 0;
+}
+
+/* Button Container */
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Buttons */
+.button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.button:hover:enabled {
+  background-color: #0056b3;
 }
