@@ -1,7 +1,7 @@
 const initialStatesAccount = {
   balance: 0,
   loan: 0,
-  loanRupees: "",
+  loanPurpose: "",
 };
 
 export default function accountReducer(state = initialStatesAccount, action) {
@@ -19,7 +19,7 @@ export default function accountReducer(state = initialStatesAccount, action) {
       return {
         ...state,
         loan: action.payload.amount,
-        loanRupees: action.payload.purpose,
+        loanPurpose: action.payload.purpose,
         balance: state.balance + action.payload.amount,
       };
 
@@ -27,7 +27,7 @@ export default function accountReducer(state = initialStatesAccount, action) {
       return {
         ...state,
         loan: 0,
-        loanRupees: "",
+        loanPurpose: "",
         balance: state.balance - state.loan,
       };
 
@@ -46,7 +46,7 @@ export function withdraw(amount) {
 
 export function reqLoan(amount, purpose) {
   return {
-    type: "amount/reqLoan",
+    type: "account/reqLoan",
     payload: { amount, purpose },
   };
 }
