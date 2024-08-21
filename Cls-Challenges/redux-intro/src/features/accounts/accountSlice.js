@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
 };
 
+
 const accountSlice = createSlice({
   name: "account",
   initialState,
